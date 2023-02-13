@@ -1,6 +1,6 @@
 const fs = require("fs");
 
-const absolutePath = (path) => {
+const relativePath = (path) => {
   return new Promise((resolve, reject) => {
     // Identificar si la ruta exite
     if (fs.existsSync(path)) {
@@ -17,5 +17,5 @@ const absolutePath = (path) => {
 };
 
 module.exports = {
-  absolutePath,
+    relativePath,
 };
