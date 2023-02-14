@@ -1,21 +1,31 @@
 const fs = require("fs");
 const path = require("path");
+
 // Función para validar si existe la ruta
-const existPath = (path) => fs.existsSync(path);
-// Función para validar si la ruta es absoluta o relativa
+const existPath = (paths) => fs.existsSync(paths);
+
+// Función para validar si la ruta es absoluta o relativa, y si es relativa la convierte a absoluta
 const absolutePath = (paths) => {
-  return path.isAbsolute(paths) ? paths : path.resolve(paths);
+  return path.isAbsolute(paths) ? paths : path.resolve(paths); 
 };
 
-const existFile = (pathAbsolute) => {
-  const pathFile = path.extname(pathAbsolute);
-  if (pathFile === '.md'){
-    return true;
-  } return false;
-};
+// Funcion para validar si el archivo es .md y su extención
+const existFile = (paths) => path.extname(paths) === '.md';
+
+//Función para validar si es un File (archivo)
+const validateFile = (paths) => fs.statSync(paths).isFile();
+
+// Función para validar si es un directorio
+const validateDirectory =  (paths) => fs.statSync(paths).isDirectory();
+
+// 
+
+
 
 module.exports = {
   existPath,
   absolutePath,
   existFile,
+  validateFile,
+  validateDirectory,
 };
