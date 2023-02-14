@@ -1,4 +1,4 @@
-const { existPath } = require("./functions.js");
+const { existPath, absolutePath, existFile } = require("./functions.js");
 const chalk = require("chalk");
 
 const mdLinks = (path, options) => {
@@ -6,9 +6,15 @@ const mdLinks = (path, options) => {
     // Identificar si la ruta exite
     if (!existPath(path)) {
       reject("The path does not exist");
-      console.log(chalk.magenta(reject));
     } else {
       console.log(chalk.magenta("The path exist"));
+      const pathAbsolute = absolutePath(path); // Se valida si la ruta es absoluta o relativa
+      // Es un archivo tipo .md?
+      if (!existFile(pathAbsolute)) {
+        reject("The file is not .md type");
+      } else {
+        console.log(chalk.green("The file is a .md type"));
+      }
     }
   });
 };
