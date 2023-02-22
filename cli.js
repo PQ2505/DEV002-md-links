@@ -4,7 +4,7 @@ const chalk = require('chalk');
 
 console.log(chalk.magenta('--------------------HOLA!! TE DOY LA BIENVENIDA--------------------'));
 
-mdLinks("./routstesting/Test1.md")
+mdLinks("./README.md")
   .then((result) => {
     console.log(result)
   })

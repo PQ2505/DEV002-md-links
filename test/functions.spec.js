@@ -1,4 +1,7 @@
-const { existPath, absolutePath, existFile } = require("../functions.js");
+const { existPath, absolutePath, existFile, validateReadFileMd } = require("../functions.js");
+
+// Method process.cwd = current working directory
+const currentDir = `${process.cwd()}`;
 
 describe("existPath", () => {
   it("Debe validar cuando el path existe", () => {
@@ -13,16 +16,14 @@ describe("existPath", () => {
 //Test para validar si a ruta es absoluta o relativa
 describe("absolutePath", () => {
   it("Debe cambiar a absoluta si es relativa", () => {
-    absolutePath("./README.md");
-    expect(absolutePath("./README.md")).toEqual(
+    absolutePath(`${currentDir}\\README.md`);
+    expect(absolutePath(`${currentDir}\\README.md`)).toEqual(
       "C:\\Users\\eprip\\OneDrive\\Desktop\\DEV002-md-links\\README.md"
     );
   });
   it("Debe devolver la ruta si ya es absoluta", () => {
-    absolutePath("./README.md");
-    expect(absolutePath("./README.md")).toEqual(
-      "C:\\Users\\eprip\\OneDrive\\Desktop\\DEV002-md-links\\README.md"
-    );
+    absolutePath(`${currentDir}\\README.md`);
+    expect(absolutePath(`${currentDir}\\README.md`)).toEqual(`${currentDir}\\README.md`);
   });
 });
 // Test para validar si es archivo es tipo .md
@@ -36,6 +37,12 @@ describe("existFile", () => {
     expect(existFile("./package.json")).toEqual(false);
   });
 });
-
+// Test para validar leer un archivo .md
+describe('validateReadFileMd', () => {
+  it('Debe devolver el contenido del archivo', () => {
+    expect(validateReadFileMd(`${currentDir}\\pruebaValidate.md`))
+  .toEqual('[Testeando](https://www.linkedin.com/in/paola-quiroga-developerfrontend/)');
+  });
+});
 
 
