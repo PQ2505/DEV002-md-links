@@ -8,7 +8,7 @@ const option1 = process.argv[3];
 const option2 = process.argv[4];
 
 if (path) {
-  console.log(chalk.bgMagenta.bold("----------   Md-Links START   ----------"));
+  console.log(chalk.bgMagenta.bold("---------- Md-Links START   ----------"));
   if (option1 === undefined && option2 === undefined) {
     mdLinks(path, { validate: false, stats: false }).then((result) => result);
   } else if (option1 === "--validate" && option2 === undefined) {

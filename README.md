@@ -12,7 +12,7 @@
 
 ## 1. Preámbulo
 
-[Markdown](https://es.wikipedia.org/wiki/Markdown) es un lenguaje de marcado
+Para iniciar debemos saber que es: [Markdown](https://es.wikipedia.org/wiki/Markdown) es un lenguaje de marcado
 ligero muy popular entre developers. Es usado en muchísimas plataformas que
 manejan texto plano (GitHub, foros, blogs, ...) y es muy común
 encontrar varios archivos en ese formato en cualquier tipo de repositorio
@@ -36,6 +36,8 @@ En este proyecto se creó una herramienta de línea de comando (CLI) o librería
 
 ## 3. Diagrama de Flujo
 
+Con este diagrama de flujo lo que se busca es hacer más fácil el entendimiento del proyecto:
+
 ![Diagrama de Flujo](imagenes/diagramaflujo.png)
 
 ## 4. Instalación y comandos
@@ -52,10 +54,15 @@ npm i https://github.com/PQ2505/DEV002-md-links.git
 
 ## 5. Funcionalidad
 
-### 1) JavaScript API
+### 1) Archivos
 
-El módulo debe poder **importarse** en otros scripts de Node.js y debe ofrecer la
-siguiente interfaz:
+Dentro del proyecto se encuentran los siguientes archivos:
+
+* `cli.js`: Aquí se encuentra la línea de comandos para ser ejecutado por la terminal.
+* `index.js`: Aquí se almacena la función mdLinks la cual nos retorna una nueva promesa en un array de objetos.
+* `functions.js`: Aquí se encuentran las funciones que nos ayudan con la creación de la funcion mdLinks.
+
+Este módulo se puede importar en otros scripts de Node.js y ofrece la siguiente interfaz:
 
 #### `mdLinks(path, options)`
 
@@ -70,9 +77,9 @@ desde donde se invoca node - _current working directory_).
 
 ### **Valor de retorno**
 
-La función debe **retornar una promesa** (`Promise`) que **resuelva a un arreglo**
+La función **retorna una promesa** (`Promise`) que **resuelva a un arreglo**
 (`Array`) de objetos (`Object`), donde cada objeto representa un link y contiene
-las siguientes propiedades
+las siguientes propiedades:
 
 Con `validate:false` :
 
@@ -114,15 +121,15 @@ mdLinks("./some/dir")
 
 ### 2) CLI (Command Line Interface - Interfaz de Línea de Comando)
 
-El ejecutable de nuestra aplicación debe poder ejecutarse de la siguiente
+El ejecutable de nuestra aplicación se puede ejecutar de la siguiente
 manera a través de la **terminal**:
 
-`md-links <path-to-file> [options]`
+### **`md-links-paolaq <path-to-file> [options]`**
 
 Por ejemplo:
 
 ```sh
-$ md-links ./some/example.md
+$ md-links-paolaq ./some/example.md
 ./some/example.md http://algo.com/2/3/ Link a algo
 ./some/example.md https://otra-cosa.net/algun-doc.html algún doc
 ./some/example.md http://google.com/ Google
@@ -136,7 +143,7 @@ que hay dentro del link (truncado a 50 caracteres).
 
 #### Options
 
-##### `--validate`
+### `--validate`:
 
 Si pasamos la opción `--validate`, el módulo debe hacer una petición HTTP para
 averiguar si el link funciona o no. Si el link resulta en una redirección a una
@@ -145,7 +152,7 @@ URL que responde ok, entonces consideraremos el link como ok.
 Por ejemplo:
 
 ```sh
-$ md-links ./some/example.md --validate
+$ md-links-paolaq ./some/example.md --validate
 ./some/example.md http://algo.com/2/3/ ok 200 Link a algo
 ./some/example.md https://otra-cosa.net/algun-doc.html fail 404 algún doc
 ./some/example.md http://google.com/ ok 301 Google
@@ -155,13 +162,13 @@ Vemos que el _output_ en este caso incluye la palabra `ok` o `fail` después de
 la URL, así como el status de la respuesta recibida a la petición HTTP a dicha
 URL.
 
-##### `--stats`
+### `--stats`
 
 Si pasamos la opción `--stats` el output (salida) será un texto con estadísticas
 básicas sobre los links.
 
 ```sh
-$ md-links ./some/example.md --stats
+$ md-links-paolaq ./some/example.md --stats
 Total: 3
 Unique: 3
 ```
@@ -170,7 +177,7 @@ También podemos combinar `--stats` y `--validate` para obtener estadísticas qu
 necesiten de los resultados de la validación.
 
 ```sh
-$ md-links ./some/example.md --stats --validate
+$ md-links-paolaq ./some/example.md --stats --validate
 Total: 3
 Unique: 3
 Broken: 1

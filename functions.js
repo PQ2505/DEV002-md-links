@@ -3,11 +3,11 @@ const path = require("path");
 const chalk = require("chalk");
 const axios = require("axios").default;
 
-// Función para validar si existe la ruta
-const existPath = (paths) => fs.existsSync(paths); // CUMPLE
+// Función para validar si la ruta existe
+const existPath = (paths) => fs.existsSync(paths); 
 
 // Función para validar si es un directorio
-const validateDirectory = (paths) => fs.statSync(paths).isDirectory(); // CUMPLE
+const validateDirectory = (paths) => fs.statSync(paths).isDirectory();
 
 // Función para validar si el archivo es .md y su extención
 const existMdFile = (paths) => path.extname(paths) === ".md";
@@ -19,17 +19,17 @@ const convertToAbsolute = (paths) => path.resolve(paths);
 function getAllFilesDirectory(path) {
   if (validateDirectory(path)) {
     const files = fs.readdirSync(path);
-    return files
+    const resultFiles =  files
       .map((file) => {
         return getAllFilesDirectory(`${path}/${file}`);
       })
       .flat();
+    return resultFiles;
   } else {
     return [path];
   }
 }
-
-// Función que se encarga de validar el array de los md encontrados
+// Función que se encarga de validar el array de los archivos .md encontrados
 const analyzeMdFilesArray = (mdFilesArray) => {
   const backupArray = [];
   return new Promise((resolve, reject) => {
@@ -82,7 +82,7 @@ const textRegex = /\[(\w+.+?)\]/gi;
 const getLinksDocument = (file, content) => {
   const arrayResponse = [];
   if (!linksRegex.test(content)) {
-    //valida las coincidencias con respecto a la expresión regular de texto, si es falsa
+    //valida las coincidencias con respecto a la expresión regular de texto
     console.log(
       chalk.bgRed.bold(
         "---------- ERROR: Dont exist Links on the path " +
@@ -98,7 +98,6 @@ const getLinksDocument = (file, content) => {
       let unitText = "";
       let originText = ["No text"];
       if (matchestext) {
-        //console.log(matchestext)
         unitText = matchestext[0];
         originText = unitText.replace(/\[|\]/g, "").split(",");
       }
@@ -117,7 +116,7 @@ const getLinksDocument = (file, content) => {
   }
 };
 
-// validacion de los links - entrega el objeto con status y ok
+// validación de los links - entrega el array de objetos con status y ok
 const getHttpResponse = (mdFilesArrayLink) => {
   const validate = mdFilesArrayLink.map((link) => {
     return axios
@@ -139,7 +138,6 @@ const getHttpResponse = (mdFilesArrayLink) => {
         return responseValidate;
       });
   });
-
   return Promise.all(validate);
 };
 
