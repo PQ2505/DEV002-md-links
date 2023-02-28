@@ -38,7 +38,7 @@ En este proyecto se creó una herramienta de línea de comando (CLI) o librería
 
 Con este diagrama de flujo lo que se busca es hacer más fácil el entendimiento del proyecto:
 
-![Diagrama de Flujo](imagenes/diagramaflujo.png)
+![Diagrama de Flujo](imagenes/diagramafinal.png)
 
 ## 4. Instalación y comandos
 
